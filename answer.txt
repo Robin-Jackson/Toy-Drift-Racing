@@ -1,0 +1,22 @@
+public int UpdateAgent(int AgentId, string Name, string Section)
+{
+	try
+	{
+		string connectionString = Properties.Settings.Default.ConnectionString;
+		using (SqlConnection conn = new SqlConnection(connectionString))
+		{
+			SqlCommand cmd = new SqlCommand();
+			cmd.Connection = conn;
+			cmd.CommandText = "Update Agent set Name=@param2, Section=@param3 where AgentId=@param1";
+			cmd.Parameters.AddWithValue("@param1", AgentId);
+			cmd.Parameters.AddWithValue("@param2", Name);
+			cmd.Parameters.AddWithValue("@param3", Section);
+			conn.Open();
+			return cmd.ExecuteNonQuery();
+		}
+	}
+	catch (SqlException ex)
+	{
+
+	}
+}
